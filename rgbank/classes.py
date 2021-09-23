@@ -60,7 +60,7 @@ class Conta:
         try:
             a = open(arquivo, 'rt')
         except:
-            sg.popup('Houve um ERRO ao abrir o arquivo!', font=("arial", 13), title='Transferência')
+            sg.popup('Houve um ERRO ao abrir o arquivo!', font=("arial", 13), title='Depósito')
         else:
             try:
                 c = 0
@@ -199,7 +199,8 @@ class Conta:
                         for valor in linhas:
                             a.write(f'{valor}')
                         a.close()
-                        sg.popup(f'Pagamento Realizado com sucesso!\n valor R$:{v:.2f}'.replace('.', ','),
+                        sg.popup(f'Pagamento Realizado com sucesso!\n'
+                                 f'{"valor R$:":>25}{v:.2f}'.replace('.', ','),
                                  font=("arial", 13), title='Pagamentos')
                         self._extrato.movimentacao.append(f'Fatura de {v:.2f} - {datetime.today()}\n'
                                                           f'Descrição >> {descricao}')
@@ -260,7 +261,7 @@ class Conta:
         finally:
             a.close()
         self._extrato.movimentacao.append(f'Trasferência de {v:.2f} - {datetime.today()}\n'
-                                          f'Descrição >> {self.descricao}')
+                                          f'Destino >> {self.descricao}')
 
     def consulta(self, arquivo, contaD):
         try:

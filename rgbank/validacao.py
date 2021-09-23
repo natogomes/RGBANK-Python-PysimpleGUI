@@ -6,7 +6,7 @@ def validacao_valor(valor):
     try:
         valor_flt = float(valor_form)
     except (ValueError, TypeError):
-        sg.popup('Informe um (VALOR) válido!', font='arial 12')
+        sg.popup('Informe um (VALOR) válido!', font='arial 13', title='Valor inválido')
     else:
         return valor
 
@@ -20,7 +20,7 @@ def validacao_num(num, dig=''):
             num_int = str(num)
 
         except (ValueError, TypeError):
-            sg.popup('Informe um (NÚMERO) válido!', font='arial 12')
+            sg.popup('Informe um (NÚMERO) válido!', font='arial 13', title='Número inválido')
 
         else:
             return f'{num}'
@@ -31,7 +31,7 @@ def validacao_num(num, dig=''):
                 num_dig = int(dig)
 
             except (ValueError, TypeError):
-                sg.popup('Informe um (NÚMERO2) válido!', font='arial 12')
+                sg.popup('Informe um (DÍGITO) válido!', font='arial 13', title='Validação Número')
 
             else:
                 return f'{num}-{dig}'
@@ -40,7 +40,7 @@ def validacao_num(num, dig=''):
 def validacao_dest(nome, valor):
 
     if nome == '*' * 35 and valor == '0,00':
-        sg.Popup('Clique (OK) para enviar os dados', font='arial 12')
+        sg.Popup('Clique (OK) para enviar os dados', font='arial 13', title='Conta Destino')
         return False
     else:
         return True
@@ -52,7 +52,7 @@ def validacao_cpf(cpf):
         try:
             cpf = int(cpf)
         except:
-            sg.popup('Informe um CPF válido!', font='arial 12')
+            sg.popup('Informe um CPF válido!', font=("arial", 13), title='CPF inválido')
             valid = False
             return valid
         else:

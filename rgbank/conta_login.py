@@ -13,7 +13,7 @@ def criar_conta(arquivo, nome, sobreN, cpf, senha1, senha2):
     try:
         a = open(arquivo, 'rt')
     except:
-        sg.popup('Houve um ERRO ao abrir o arquivo!', font=("arial", 13), title='Transferência')
+        sg.popup('Houve um ERRO ao abrir o arquivo!', font=("arial", 13), title='Criar Conta')
     else:
         try:
             linhas = []
@@ -59,7 +59,7 @@ def login(numero, senha, arquivo):
             return False
 
         except:
-            sg.Popup('ERRO ao obter os dados!', font=("arial", 15), title='Login')
+            sg.Popup('ERRO ao obter os dados!', font=("arial", 13), title='Login')
 
     finally:
         a.close()

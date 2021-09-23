@@ -16,4 +16,4 @@ def criar_arq(nome):
         a = open(nome, 'wt+')
         a.close()
     except:
-        sg.popup('Houve um ERRO ao criar os dados!', font=("arial", 15), title='Criar Arquivos')
+        sg.popup('Houve um ERRO ao criar os dados!', font=("arial", 13), title='Arquivar Dados')
