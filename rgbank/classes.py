@@ -1,6 +1,8 @@
 import PySimpleGUI as sg
 from datetime import datetime
 
+data_hora = datetime.today()
+
 
 class Extrato:
     def __init__(self):
@@ -101,8 +103,9 @@ class Conta:
                 sg.popup('Houve um ERRO ao ler o aquivo!', font=("arial", 13), title='Depósito')
         finally:
             a.close()
-        self._extrato.movimentacao.append(f'Depósito de R$:{v:.2f} - {datetime.today()}\n'
-                                          f'Destino >> {self.descricao}')
+
+        self._extrato.movimentacao.append(f'Depósito de R$:{v:.2f} - {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
+                                          f'Destino >> {self.descricao}\n')
 
     def saca(self, arquivo, valor, senha):
         valor = str(valor).replace(',', '.')
@@ -151,7 +154,8 @@ class Conta:
                         a.close()
                         sg.popup(f'Saque de R$:{v:.2f}\nRetire suas cédulas! '.replace('.', ','),
                                  font=("arial", 13), title='Saque')
-                        self._extrato.movimentacao.append(f'Saque de {v:.2f} - {datetime.today()}')
+                        self._extrato.movimentacao.append(f'Saque de {v:.2f} - '
+                                                          f'{datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n')
                         return valid
 
                     except:
@@ -213,8 +217,9 @@ class Conta:
                         sg.popup(f'Pagamento Realizado com sucesso!\n'
                                  f'{"valor R$:":>25}{v:.2f}'.replace('.', ','),
                                  font=("arial", 13), title='Pagamentos')
-                        self._extrato.movimentacao.append(f'Fatura de {v:.2f} - {datetime.today()}\n'
-                                                          f'Descrição >> {descricao}')
+                        self._extrato.movimentacao.append(f'Fatura de {v:.2f} - '
+                                                          f'{datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
+                                                          f'Descrição >> {descricao}\n')
                         return valid
 
                     except:
@@ -277,8 +282,8 @@ class Conta:
                 sg.popup('Houve um AQUI ao ler o aquivo!', font=("arial", 13), title='Transferência')
         finally:
             a.close()
-        self._extrato.movimentacao.append(f'Trasferência de {v:.2f} - {datetime.today()}\n'
-                                          f'Destino >> {self.descricao}')
+        self._extrato.movimentacao.append(f'Trasferência de {v:.2f} - {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
+                                          f'Destino >> {self.descricao}\n')
 
     def consulta(self, arquivo, contaD):
         try:
