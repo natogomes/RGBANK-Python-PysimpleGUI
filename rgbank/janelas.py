@@ -2,6 +2,10 @@ import PySimpleGUI as sg
 
 
 def tela_login():
+    """
+    -> Interface gráfica para janela de login.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
     login_frame = [
         [sg.Text('Conta', font='arial 15')],
@@ -13,7 +17,8 @@ def tela_login():
         [sg.Button('Login', font='arial 13', size=(8, 1))]
     ]
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), 0), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Seja bem vindo!', font='arial 20')],
         [sg.Frame(layout=login_frame, title='Login', pad=(0, 20))],
         [sg.Text('Não possui conta?', font='arial 13'), sg.Button('Abrir Conta',
@@ -24,6 +29,10 @@ def tela_login():
 
 
 def tela_abrir_conta():
+    """
+    -> Interface gráfica para janela de abertura de contas.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     dados_frame = [
@@ -34,23 +43,30 @@ def tela_abrir_conta():
         [sg.Text('CPF (Só números)', font='arial 13', pad=(5, 0))],
         [sg.Input(font='arial 13', size=(25, 1), pad=(5, (0, 17)), key='cpf', do_not_clear=False)],
         [sg.Text('Senha (6 dígitos)', font='arial 13', pad=(5, 0))],
-        [sg.Input(font='arial 13', size=(25, 1), pad=(5, (0, 17)), key='senha1', do_not_clear=False)],
+        [sg.Input(font='arial 13', password_char='*', size=(25, 1), pad=(5, (0, 17)), key='senha1', do_not_clear=False)],
         [sg.Text('Confirmar Senha', font='arial 13', pad=(5, 0))],
-        [sg.Input(font='arial 13', size=(25, 1), pad=(5, (0, 5)), key='senha2', do_not_clear=False)]
+        [sg.Input(font='arial 13', password_char='*', size=(25, 1), pad=(5, (0, 5)), key='senha2', do_not_clear=False)]
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), 0), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Abrir Conta', pad=(0, 0), font='arial 16')],
         [sg.Frame(layout=dados_frame, pad=(0, 0), title='Dados')],
         [sg.Button('Criar Conta', font='arial 13', size=(12, 1), pad=(10, 18)),
          sg.Button('Voltar', font='arial 13', size=(8, 1), pad=(10, 18))]
     ]
     tela_abrir_c = sg.Window('Abrir Conta', layout=layout, size=(600, 500), element_justification='center',
-                             finalize=True, modal=True)
+                             modal=True, finalize=True)
 
 
 def tela_prin(cliente, conta):
+    """
+    -> Interface gráfica da janela principal do programa.
+    :param cliente: Passa o nome do cliente na seção.
+    :param conta: Passa o número da conta do cliente na seção.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     colunaE = [
@@ -69,7 +85,8 @@ def tela_prin(cliente, conta):
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), 0), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Column(colunaE),
          sg.Column(colDados, pad=(30, 30)),
          sg.Column(colunaD)],
@@ -83,6 +100,10 @@ def tela_prin(cliente, conta):
 
 
 def tela_transf():
+    """
+    -> Interface gráfica para janela de transferência.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     dados_frame = [
@@ -95,9 +116,9 @@ def tela_transf():
     ]
 
     dados_destino = [
-        [sg.Text('Dados do destinatário', size=(26, 1), font='arial 14', justification='center')],
+        [sg.Text('Dados do destinatário (OK)', size=(32, 1), font='arial 14', justification='center')],
         [sg.Text('Nome:', font='arial 13'),
-         sg.Input('*' * 35, size=(30, 1), background_color='white', font=('Arial', 13, 'bold'),
+         sg.Input('*' * 35, size=(33, 1), background_color='white', font=('Arial', 13, 'bold'),
                   text_color='#000000', key='nomeD')],
         [sg.Text('Valor da transferência: R$', font='arial 13'),
          sg.Input('0,00', size=(14, 1), background_color='white', font=('Arial', 13, 'bold'),
@@ -105,7 +126,8 @@ def tela_transf():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), 0), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Transferência RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 30)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -119,6 +141,10 @@ def tela_transf():
 
 
 def tela_deposito():
+    """
+    -> Interface gráfica para janela de depósito.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     dados_frame = [
@@ -132,9 +158,9 @@ def tela_deposito():
     ]
 
     dados_destino = [
-        [sg.Text('Dados do destinatário', size=(26, 1), font='arial 14', justification='center')],
+        [sg.Text('Dados do destinatário (OK)', size=(32, 1), font='arial 14', justification='center')],
         [sg.Text('Nome:', font='arial 13'),
-         sg.Input('*' * 35, size=(30, 1), background_color='white', font=('Arial', 13, 'bold'),
+         sg.Input('*' * 35, size=(33, 1), background_color='white', font=('Arial', 13, 'bold'),
                   text_color='#000000', key='nomeDp')],
         [sg.Text('Valor do Depósito: R$', font='arial 13'),
          sg.Input('0,00', size=(12, 1), background_color='white', font=('Arial', 13, 'bold'),
@@ -142,7 +168,8 @@ def tela_deposito():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), 0), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Depósito RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -156,6 +183,10 @@ def tela_deposito():
 
 
 def tela_saque():
+    """
+    -> Interface gráfica para janela de saque.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     dados_frame = [
@@ -174,7 +205,8 @@ def tela_saque():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), (0, 20)), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Saque RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -189,6 +221,10 @@ def tela_saque():
 
 
 def tela_pagtos():
+    """
+    -> Interface gráfica para janela de pagamentos.
+    :return: Sem retorno.
+    """
     sg.theme('DarkBlue16')
 
     dadosPg = [
@@ -205,7 +241,8 @@ def tela_pagtos():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=((0, 450), (0, 20)), font=('Arial', 22, 'bold'))],
+        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
+         sg.Text('1.1', pad=((0, 420), (12, 0)))],
         [sg.Text('Pagamentos RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dadosPg, title='', pad=(0, (0, 20)))],
         [sg.Button('Voltar', font='arial 13', size=(8, 1))],

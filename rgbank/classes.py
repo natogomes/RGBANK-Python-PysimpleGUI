@@ -4,11 +4,16 @@ from datetime import datetime
 data_hora = datetime.today()
 
 
+# CLASSE QUE CRIA TODA MOVIMENTAÇÃO DO USUÁRIO
 class Extrato:
     def __init__(self):
         self._movimentacao = []
 
     def imprime_mov(self):
+        """
+        -> Printa cada movimentação feita pelo cliente.
+        :return: sem retorno
+        """
         print('Movimentaçãoes:')
         for m in self._movimentacao:
             print('-', m)
@@ -18,6 +23,7 @@ class Extrato:
         return self._movimentacao
 
 
+# CLASSE DE DADOS PESSOAIS DO CLIENTE
 class Cliente:
     def __init__(self, nome, sobrenome, cpf):
         self._nome = nome
@@ -34,9 +40,10 @@ class Cliente:
 
     @property
     def cpf(self):
-        return self.cpf
+        return self._cpf
 
 
+# CLASSE DE DADOS BANCÁRIOS, MOVIMENTAÇÕES E OPERAÇÕES DO CLIENTE
 class Conta:
     def __init__(self, num, senha, saldo, cliente):
         self._numero = num
@@ -56,6 +63,14 @@ class Conta:
         return self._saldo
 
     def deposito(self, arquivo, valor, numeroD='', contaDestino=False):
+        """
+        -> Método que faz toda operação de depósito.
+        :param arquivo: Passa o nome do arquivo que serve como base de dados.
+        :param valor: Passa um valor de transação.
+        :param numeroD: Passa o número da conta de destino.
+        :param contaDestino: True ou False
+        :return: sem retorno.
+        """
         valor = str(valor).replace(',', '.')
         v = float(valor)
 
@@ -105,9 +120,16 @@ class Conta:
             a.close()
 
         self._extrato.movimentacao.append(f'Depósito de R$:{v:.2f} - {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
-                                          f'Destino >> {self.descricao}\n')
+                                          f'Destino >> {self.descricao}\n'.replace('.', ','))
 
     def saca(self, arquivo, valor, senha):
+        """
+        -> Método que faz toda operação de saque.
+        :param arquivo: Passa o arquivo que serve como base de dados.
+        :param valor: Passa o valor da transação.
+        :param senha: Passa a senha que o usuário digita para validar a transação.
+        :return: Retorna True ou False.
+        """
         valor = str(valor).replace(',', '.')
         v = float(valor)
 
@@ -155,7 +177,8 @@ class Conta:
                         sg.popup(f'Saque de R$:{v:.2f}\nRetire suas cédulas! '.replace('.', ','),
                                  font=("arial", 13), title='Saque')
                         self._extrato.movimentacao.append(f'Saque de {v:.2f} - '
-                                                          f'{datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n')
+                                                          f'{datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
+                                                          .replace('.', ','))
                         return valid
 
                     except:
@@ -168,6 +191,14 @@ class Conta:
             a.close()
 
     def pagtos(self, arquivo, valor, senha, descricao):
+        """
+        -> Método que faz toda operação de pagamentos.
+        :param arquivo: Passa o arquivo que serve como banco de dados.
+        :param valor: Passa o valor da transação.
+        :param senha: Passa a senha do usuário para validar a transação.
+        :param descricao: Passa uma descrição(detalhamento) da transação.
+        :return: Retorna True ou False.
+        """
 
         valor = str(valor).replace(',', '.')
         v = float(valor)
@@ -219,7 +250,7 @@ class Conta:
                                  font=("arial", 13), title='Pagamentos')
                         self._extrato.movimentacao.append(f'Fatura de {v:.2f} - '
                                                           f'{datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
-                                                          f'Descrição >> {descricao}\n')
+                                                          f'Descrição >> {descricao}\n'.replace('.', ','))
                         return valid
 
                     except:
@@ -231,6 +262,13 @@ class Conta:
             a.close()
 
     def transfer(self, arquivo, valor, numD):
+        """
+        -> Método que faz toda operação de transferêcia.
+        :param arquivo: Passa o arquivo que serve como banco de dados.
+        :param valor: Passa o valor da transação.
+        :param numD: Passa o número da conta de destino.
+        :return: Retorna True ou False.
+        """
         valor = str(valor).replace(',', '.')
         v = float(valor)
         try:
@@ -282,10 +320,17 @@ class Conta:
                 sg.popup('Houve um AQUI ao ler o aquivo!', font=("arial", 13), title='Transferência')
         finally:
             a.close()
-        self._extrato.movimentacao.append(f'Trasferência de {v:.2f} - {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
-                                          f'Destino >> {self.descricao}\n')
+        self._extrato.movimentacao.append(f'Trasferência de {v:.2f} -'
+                                          f' {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
+                                          f'Destino >> {self.descricao}\n'.replace('.', ','))
 
     def consulta(self, arquivo, contaD):
+        """
+        -> Método que faz toda requisição de dados para confirmação de transação.
+        :param arquivo: Passa o arquivo que serve como base de dados.
+        :param contaD: Passa o número da conta a ser consultada.
+        :return: Retorna uma lista com os dados da requisição.
+        """
         try:
             a = open(arquivo, 'rt')
         except:
@@ -309,8 +354,12 @@ class Conta:
             a.close()
 
     def print_mov(self):
+        """
+        -> Método que faz um print dos dados do cliente em seção e suas movimentações.
+        :return:
+        """
         print(f'Conta: {self._numero}\n'
               f'Nome: {self._cliente.nome} {self._cliente.sobrenome}')
         print()
         self._extrato.imprime_mov()
-        print(f'Saldo: R$ {self.sal:.2f}')
+        print(f'Saldo: R$ {self.sal:.2f}'.replace('.', ','))

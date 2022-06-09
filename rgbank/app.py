@@ -1,4 +1,4 @@
-from rgbank.telas import *
+from rgbank.janelas import *
 from rgbank.validacao import *
 from rgbank.criar_banco import *
 from rgbank.conta_login import *
@@ -6,10 +6,12 @@ from rgbank.classes import *
 import PySimpleGUI as sg
 
 
+# CRIA UM ARQUIVO DE TEXTO QUE AQUI USAMOS COMO BANCO DE DADOS
 banco_dados = 'dados.txt'
 if not verif_arq(banco_dados):
     criar_arq(banco_dados)
 
+# ABRE A JANELA DE ENTRADA (LOGIN)
 tela_login()
 while True:
     window, event, values = sg.read_all_windows()
@@ -19,6 +21,7 @@ while True:
     if event == sg.WIN_CLOSED:
         break
 
+# FAZ LOGIN E ABRE A JANELA PRINCIPAL DO PROGRAMA
     elif event == 'Login':
         log = login(conta_num, senha, banco_dados)
         if log:
@@ -62,7 +65,7 @@ while True:
                                     window['nomeD'].update(f'{cliente_transf.nome} {cliente_transf.sobrenome}')
                                     window['valorD'].update(values['valorTr'.strip()])
                                 else:
-                                    sg.popup('Informe um número válido!', font='arial 12')
+                                    sg.popup('Informe um número válido!', font='arial 13', title='Erro')
                                     window['contaD'].update('')
                                     window['digitoD'].update('')
                             else:
@@ -109,7 +112,7 @@ while True:
                                 window['contaDp'].update(cliente_conta.numero.strip())
                                 window['nomeDp'].update(f'{cliente.nome.strip()} {cliente.sobrenome.strip()}')
                                 window['valorDp'].update(validacao_valor(values['valorInp'].strip()))
-                                sg.Popup('Verifique os dados e (CONFIRMAR)', font='arial 12')
+                                sg.Popup('Verifique os dados e (CONFIRMAR)', font='arial 13', title='Confirmar')
                             else:
                                 window['valorInp'].update('')
 
@@ -125,7 +128,7 @@ while True:
                                     window['nomeDp'].update(f'{cliente_dep.nome} {cliente_dep.sobrenome}')
                                     window['valorDp'].update(values['valorInp'].strip())
                                 else:
-                                    sg.popup('Informe um número válido!', font='arial 12')
+                                    sg.popup('Informe um número válido!', font='arial 13', title='Erro')
                                     window['contaDp'].update('')
                                     window['digitoDp'].update('')
                             else:
@@ -232,6 +235,7 @@ while True:
             window['digito'].update('')
             window['senha'].update('')
 
+# ABRE UMA JANELA PARA CRIAR CONTA
     elif event == 'Abrir Conta':
         window.close()
         tela_abrir_conta()
@@ -254,23 +258,21 @@ while True:
                 senha1 = values['senha1'].strip()
                 senha2 = values['senha2'].strip()
 
-                if validacao_cpf(cpf):
-                    if senha1 == senha2:
-                        conta = criar_conta(banco_dados, nome, sobreN, cpf, senha1, senha2)
+                if nome == '' or sobreN == '' or cpf == '' or senha1 == '' or senha2 == '':
+                    sg.Popup('Verifique se todos os campos estão preenchidos.', font='arial 13', title='Erro')
+
+                elif validacao_cpf(cpf):
+                    if valid_criar_senha(senha1, senha2):
+                        conta = criar_conta(banco_dados, nome, sobreN, cpf, senha2)
                         window.close()
                         tela_login()
                         break
-                    else:
-                        sg.Popup('As senhas não correspondem!')
-                        window['nome'].update(values['nome'])
-                        window['Snome'].update(values['Snome'])
-                        window['cpf'].update(values['cpf'])
 
-                else:
-                    window['nome'].update(values['nome'])
-                    window['Snome'].update(values['Snome'])
-                    window['senha1'].update(values['senha1'])
-                    window['senha2'].update(values['senha2'])
+                window['nome'].update(values['nome'])
+                window['Snome'].update(values['Snome'])
+                window['cpf'].update(values['cpf'])
+
+
 
 
 
