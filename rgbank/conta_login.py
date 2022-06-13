@@ -34,8 +34,10 @@ def criar_conta(arquivo, nome, sobreN, cpf, senha2):
                 for valor in linhas:
                     a.write(f'{valor}')
                 a.close()
-                sg.popup(f'{"Conta criada com sucesso!":^45}\n'
-                         f'Faça LOGIN e comece a usar sua conta!', font=("arial", 13), title='Abrir Conta')
+                sg.popup(f'{"ABERTURA DE CONTA COM SUCESSO!"}\n\n'
+                         f'Conta: {numero}\n'
+                         f'Nome: {nome} {sobreN}\n\n'
+                         f'{"Faça LOGIN e comece a usar sua conta."}', font=("arial", 13), title='Abrir Conta')
             except:
                 sg.popup('ERRO ao arquivar os dados!', font=("arial", 13), title='Abrir Conta')
 

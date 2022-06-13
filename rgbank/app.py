@@ -252,8 +252,8 @@ while True:
 
             elif event == 'Criar Conta':
 
-                nome = values['nome'].strip()
-                sobreN = values['Snome'].strip()
+                nome = values['nome'].strip().title()
+                sobreN = values['Snome'].strip().title()
                 cpf = values['cpf'].strip()
                 senha1 = values['senha1'].strip()
                 senha2 = values['senha2'].strip()
@@ -263,7 +263,7 @@ while True:
 
                 elif validacao_cpf(cpf):
                     if valid_criar_senha(senha1, senha2):
-                        conta = criar_conta(banco_dados, nome, sobreN, cpf, senha2)
+                        criar_conta(banco_dados, nome, sobreN, cpf, senha2)
                         window.close()
                         tela_login()
                         break
