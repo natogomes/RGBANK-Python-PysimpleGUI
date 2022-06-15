@@ -22,7 +22,7 @@ def tela_login():
         [sg.Frame(layout=login_frame, title='Login', pad=(0, 20))],
         [sg.Text('Não possui conta?', font='arial 13'), sg.Button('Abrir Conta',
                                                                   size=(12, 1), font='arial 13')],
-        [sg.CloseButton('Sair', font='arial 13', size=(10, 1), pad=(0, 20))]
+        [sg.CloseButton('Fechar', font='arial 13', size=(10, 1), pad=(0, 20))]
     ]
     telalog = sg.Window('Login', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center', finalize=True)
 
@@ -87,8 +87,8 @@ def tela_prin(cliente, conta):
         [sg.Column(colunaE),
          sg.Column(colDados, pad=(30, 30)),
          sg.Column(colunaD)],
-        [sg.Button('Voltar', font='arial 13', size=(8, 1)),
-         sg.CButton('Sair', font='arial 13', size=(8, 1))],
+        [sg.Button('Sair', font='arial 13', size=(8, 1)),
+         sg.CButton('Fechar', font='arial 13', size=(8, 1))],
         [sg.Button('Exibir extrato', font='arial 13', size=(14, 1), pad=(0, (25, 5)))],
         [sg.Output(size=(45, 6), font='arial 14', text_color='Black', background_color='white')]
     ]
@@ -127,10 +127,9 @@ def tela_transf():
         [sg.Text('Transferência RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 30)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
-         sg.Button('Voltar', font='arial 13', size=(8, 1))],
+         sg.Button('Sair', font='arial 13', size=(8, 1))],
         [sg.Frame(layout=dados_destino, title='', pad=(30, 30))],
-        [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
-         sg.CButton('Sair', size=(8, 1), font='arial 13')]
+        [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
     ]
     telaTr = sg.Window('Transferência', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
                        element_justification='center', modal=True, finalize=True)
@@ -168,10 +167,9 @@ def tela_deposito():
         [sg.Text('Depósito RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
-         sg.Button('Voltar', font='arial 13', size=(8, 1))],
+         sg.Button('Sair', font='arial 13', size=(8, 1))],
         [sg.Frame(layout=dados_destino, title='', pad=(30, 20))],
-        [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
-         sg.CButton('Sair', size=(8, 1), font='arial 13')]
+        [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
     ]
     telaDp = sg.Window('Depósito', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
                        element_justification='center', modal=True, finalize=True)
@@ -204,10 +202,9 @@ def tela_saque():
         [sg.Text('Saque RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
-         sg.Button('Voltar', font='arial 13', size=(8, 1))],
+         sg.Button('Sair', font='arial 13', size=(8, 1))],
         [sg.Frame(layout=dados_destino, title='', pad=(0, 20))],
-        [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
-         sg.CButton('Sair', size=(8, 1), font='arial 13')]
+        [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
     ]
 
     telaSq = sg.Window('Saque', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
@@ -238,10 +235,9 @@ def tela_pagtos():
         [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Pagamentos RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dadosPg, title='', pad=(0, (0, 20)))],
-        [sg.Button('Voltar', font='arial 13', size=(8, 1))],
+        [sg.Button('Sair', font='arial 13', size=(8, 1))],
         [sg.Frame(layout=descricao, title='', pad=(0, 20))],
-        [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
-         sg.CButton('Sair', size=(8, 1), font='arial 13')]
+        [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
     ]
 
     telaPgt = sg.Window('Pagamentos', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center', modal=True, finalize=True)

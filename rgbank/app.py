@@ -39,7 +39,7 @@ while True:
                 if event == sg.WIN_CLOSED:
                     exit()
 
-                elif event == 'Voltar':
+                elif event == 'Sair':
                     tela_login()
                     window.close()
                     break
@@ -87,7 +87,7 @@ while True:
                                     window['contaD'].update('')
                                     window['digitoD'].update('')
 
-                        elif event == 'Voltar':
+                        elif event == 'Sair':
                             window.close()
                             tela_prin(cliente, cliente_conta)
                             break
@@ -101,7 +101,7 @@ while True:
                         if event == sg.WIN_CLOSED:
                             exit()
 
-                        elif event == 'Voltar':
+                        elif event == 'Sair':
                             window.close()
                             tela_prin(cliente, cliente_conta)
                             break
@@ -166,7 +166,7 @@ while True:
                         if event == sg.WIN_CLOSED:
                             exit()
 
-                        elif event == 'Voltar':
+                        elif event == 'Sair':
                             window.close()
                             tela_prin(cliente, cliente_conta)
                             break
@@ -202,7 +202,7 @@ while True:
                         if event == sg.WIN_CLOSED:
                             exit()
 
-                        elif event == 'Voltar':
+                        elif event == 'Sair':
                             window.close()
                             tela_prin(cliente, cliente_conta)
                             break
