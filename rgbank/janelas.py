@@ -17,15 +17,14 @@ def tela_login():
         [sg.Button('Login', font='arial 13', size=(8, 1))]
     ]
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Seja bem vindo!', font='arial 20')],
         [sg.Frame(layout=login_frame, title='Login', pad=(0, 20))],
         [sg.Text('Não possui conta?', font='arial 13'), sg.Button('Abrir Conta',
                                                                   size=(12, 1), font='arial 13')],
         [sg.CloseButton('Sair', font='arial 13', size=(10, 1), pad=(0, 20))]
     ]
-    telalog = sg.Window('Login', layout=layout, size=(600, 500), element_justification='center', finalize=True)
+    telalog = sg.Window('Login', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center', finalize=True)
 
 
 def tela_abrir_conta():
@@ -49,14 +48,13 @@ def tela_abrir_conta():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Abrir Conta', pad=(0, 0), font='arial 16')],
         [sg.Frame(layout=dados_frame, pad=(0, 0), title='Dados')],
         [sg.Button('Criar Conta', font='arial 13', size=(12, 1), pad=(10, 18)),
          sg.Button('Voltar', font='arial 13', size=(8, 1), pad=(10, 18))]
     ]
-    tela_abrir_c = sg.Window('Abrir Conta', layout=layout, size=(600, 500), element_justification='center',
+    tela_abrir_c = sg.Window('Abrir Conta', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center',
                              modal=True, finalize=True)
 
 
@@ -85,17 +83,16 @@ def tela_prin(cliente, conta):
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Column(colunaE),
          sg.Column(colDados, pad=(30, 30)),
          sg.Column(colunaD)],
         [sg.Button('Voltar', font='arial 13', size=(8, 1)),
          sg.CButton('Sair', font='arial 13', size=(8, 1))],
         [sg.Button('Exibir extrato', font='arial 13', size=(14, 1), pad=(0, (25, 5)))],
-        [sg.Output(size=(45, 6), font='arial 14', text_color='Black')]
+        [sg.Output(size=(45, 6), font='arial 14', text_color='Black', background_color='white')]
     ]
-    telap = sg.Window('RGBANK', layout=layout, size=(600, 500), element_justification='center',
+    telap = sg.Window('RGBANK', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center',
                       modal=True, finalize=True)
 
 
@@ -126,8 +123,7 @@ def tela_transf():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Transferência RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 30)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -136,7 +132,7 @@ def tela_transf():
         [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
          sg.CButton('Sair', size=(8, 1), font='arial 13')]
     ]
-    telaTr = sg.Window('Transferência', layout=layout, size=(600, 500),
+    telaTr = sg.Window('Transferência', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
                        element_justification='center', modal=True, finalize=True)
 
 
@@ -168,8 +164,7 @@ def tela_deposito():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Depósito RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -178,7 +173,7 @@ def tela_deposito():
         [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
          sg.CButton('Sair', size=(8, 1), font='arial 13')]
     ]
-    telaDp = sg.Window('Depósito', layout=layout, size=(600, 500),
+    telaDp = sg.Window('Depósito', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
                        element_justification='center', modal=True, finalize=True)
 
 
@@ -205,8 +200,7 @@ def tela_saque():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Saque RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 20)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
@@ -216,7 +210,7 @@ def tela_saque():
          sg.CButton('Sair', size=(8, 1), font='arial 13')]
     ]
 
-    telaSq = sg.Window('Saque', layout=layout, size=(600, 500),
+    telaSq = sg.Window('Saque', icon='imagens/logoico.ico', layout=layout, size=(600, 500),
                        element_justification='center', modal=True, finalize=True)
 
 
@@ -241,8 +235,7 @@ def tela_pagtos():
     ]
 
     layout = [
-        [sg.Text('RGBANK', pad=(0, 0), font=('Arial', 22, 'bold')),
-         sg.Text('1.1', pad=((0, 420), (12, 0)))],
+        [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Pagamentos RGB', font='arial, 12', pad=(0, 0))],
         [sg.Frame(layout=dadosPg, title='', pad=(0, (0, 20)))],
         [sg.Button('Voltar', font='arial 13', size=(8, 1))],
@@ -251,5 +244,5 @@ def tela_pagtos():
          sg.CButton('Sair', size=(8, 1), font='arial 13')]
     ]
 
-    telaPgt = sg.Window('Pagamentos', layout=layout, size=(600, 500), element_justification='center', modal=True, finalize=True)
+    telaPgt = sg.Window('Pagamentos', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center', modal=True, finalize=True)
 
