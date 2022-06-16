@@ -91,7 +91,7 @@ def valid_criar_senha(senha1, senha2):
     if senha1 == senha2:
         return True
     else:
-        sg.Popup('As senha não correspondem!', font=("arial", 13), title='CPF inválido')
+        sg.Popup('As senha não correspondem!', font=("arial", 13), title='Senha inválida')
         return False
 
 

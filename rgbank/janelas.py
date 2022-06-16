@@ -13,7 +13,7 @@ def tela_login():
          sg.Text('-'),
          sg.Input(size=(1, 1), font='arial 15', key='digito', do_not_clear=False)],
         [sg.Text('Senha', font='arial 15')],
-        [sg.Input(font='arial 15', size=(20, 1), key='senha', password_char='*', do_not_clear=False)],
+        [sg.Input(font='arial 15', size=(15, 1), key='senha', password_char='*', do_not_clear=False)],
         [sg.Button('Login', font='arial 13', size=(8, 1))]
     ]
     layout = [
@@ -110,6 +110,8 @@ def tela_transf():
          sg.Input(size=(1, 1), font='arial 15', key='digitoD')],
         [sg.Text('Valor', font='arial 15')],
         [sg.Input(size=(12, 1), font='arial 15', key='valorTr')],
+        [sg.Text('Senha', font='arial 15')],
+        [sg.Input(size=(12, 1), password_char='*', font='arial 15', key='senhaTr')],
     ]
 
     dados_destino = [
@@ -125,10 +127,10 @@ def tela_transf():
     layout = [
         [sg.Image('imagens/logoRGB.png')],
         [sg.Text('Transferência RGB', font='arial, 12', pad=(0, 0))],
-        [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 30)))],
+        [sg.Frame(layout=dados_frame, title='', pad=(0, (0, 5)))],
         [sg.Button('OK', font='arial 13', size=(8, 1)),
          sg.Button('Sair', font='arial 13', size=(8, 1))],
-        [sg.Frame(layout=dados_destino, title='', pad=(30, 30))],
+        [sg.Frame(layout=dados_destino, title='', pad=(0, 20))],
         [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
     ]
     telaTr = sg.Window('Transferência', icon='imagens/logoico.ico', layout=layout, size=(600, 500),

@@ -49,21 +49,26 @@ while True:
                     window.close()
                     while True:
                         window, event, values = sg.read_all_windows()
+                        valor = values['valorTr'].strip()
+                        senha = values['senhaTr'].strip()
+                        nome = values['nomeD'].strip()
+                        valorD = values['valorD'].strip()
+                        contaD = values['contaD'].strip()
+                        dig = values['digitoD'].strip()
                         num_dest = f'{values["contaD".strip()]}-{values["digitoD".strip()]}'
 
                         if event == sg.WIN_CLOSED:
                             exit()
 
                         elif event == 'OK':
-
-                            if validacao_valor(values['valorTr']):
+                            if validacao_valor(valor):
                                 dados = cliente_conta.consulta(banco_dados, num_dest)
                                 if dados:
                                     cliente_transf = Cliente(dados[3], dados[4], dados[5])
                                     cliente_conta_transf = Conta(dados[0], dados[1], dados[2], cliente_transf)
 
                                     window['nomeD'].update(f'{cliente_transf.nome} {cliente_transf.sobrenome}')
-                                    window['valorD'].update(values['valorTr'.strip()])
+                                    window['valorD'].update(valor)
                                 else:
                                     sg.popup('Informe um número válido!', font='arial 13', title='Erro')
                                     window['contaD'].update('')
@@ -72,16 +77,16 @@ while True:
                                 window['valorTr'].update('')
 
                         elif event == 'Confirmar':
-                            if validacao_dest(values['nomeD'], values['valorD']):
+                            if validacao_dest(nome, valorD):
+                                if validacao_valor(valor) and validacao_num(contaD, dig):
+                                    if cliente_conta.transfer(banco_dados, valor, num_dest, senha):
+                                        window.close()
+                                        tela_prin(cliente, cliente_conta)
+                                        break
+                                    else:
+                                        window['valorTr'].update('')
+                                        window['senhaTr'].update('')
 
-                                if validacao_valor(values['valorTr']) and validacao_num(values["contaD"],
-                                                                                         values["digitoD"]):
-                                    num_dest = validacao_num(values["contaD"], values["digitoD"])
-                                    cliente_conta.transfer(banco_dados, values['valorTr'].strip(),
-                                                           num_dest)
-                                    window.close()
-                                    tela_prin(cliente, cliente_conta)
-                                    break
                                 else:
                                     window['valorTr'].update('')
                                     window['contaD'].update('')
@@ -98,6 +103,12 @@ while True:
                     while True:
                         window, event, values = sg.read_all_windows()
 
+                        nome = values['nomeDp'].strip()
+                        valor = values['valorInp'].strip()
+                        numero = values["contaDp"].strip()
+                        dig = values["digitoDp"].strip()
+                        valorD = values['valorDp'].strip()
+
                         if event == sg.WIN_CLOSED:
                             exit()
 
@@ -108,25 +119,25 @@ while True:
 
                         elif event == 'Em minha conta':
 
-                            if validacao_valor(values['valorInp']):
+                            if validacao_valor(valor):
                                 window['contaDp'].update(cliente_conta.numero.strip())
                                 window['nomeDp'].update(f'{cliente.nome.strip()} {cliente.sobrenome.strip()}')
-                                window['valorDp'].update(validacao_valor(values['valorInp'].strip()))
+                                window['valorDp'].update(validacao_valor(valor))
                                 sg.Popup('Verifique os dados e (CONFIRMAR)', font='arial 13', title='Confirmar')
                             else:
                                 window['valorInp'].update('')
 
                         elif event == 'OK':
 
-                            if validacao_valor(values['valorInp']):
-                                num_dest = f'{values["contaDp"].strip()}-{values["digitoDp"].strip()}'
+                            if validacao_valor(valor):
+                                num_dest = f'{numero}-{dig}'
                                 dados = cliente_conta.consulta(banco_dados, num_dest)
                                 if dados:
                                     cliente_dep = Cliente(dados[3], dados[4], dados[5])
                                     cliente_conta_dep = Conta(dados[0], dados[1], dados[2], cliente_dep)
 
                                     window['nomeDp'].update(f'{cliente_dep.nome} {cliente_dep.sobrenome}')
-                                    window['valorDp'].update(values['valorInp'].strip())
+                                    window['valorDp'].update(valor)
                                 else:
                                     sg.popup('Informe um número válido!', font='arial 13', title='Erro')
                                     window['contaDp'].update('')
@@ -136,13 +147,12 @@ while True:
 
                         elif event == 'Confirmar':
 
-                            if validacao_dest(values['nomeDp'], values['valorDp']):
+                            if validacao_dest(nome, valorD):
 
-                                if validacao_valor(values['valorInp']) and\
-                                        validacao_num(values["contaDp"], values["digitoDp"]):
-                                    num_dest = validacao_num(values["contaDp"], values["digitoDp"])
+                                if validacao_valor(valor) and validacao_num(numero, dig):
+                                    num_dest = validacao_num(numero, dig)
 
-                                    if values['digitoDp'] == '':
+                                    if dig == '':
                                         cliente_conta.deposito(banco_dados, values['valorInp'].strip(),
                                                                num_dest, contaDestino=False)
                                     else:
@@ -191,7 +201,6 @@ while True:
                                 break
                             else:
                                 window['senhaSq'].update('')
-                                continue
 
                 elif event == 'Pagamentos':
                     tela_pagtos()
@@ -221,7 +230,8 @@ while True:
                                         break
                                     else:
                                         window['senhaPg'].update('')
-                                        continue
+                                        window['valorPg'].update('')
+
 
                             else:
                                 window['valorPg'].update('')

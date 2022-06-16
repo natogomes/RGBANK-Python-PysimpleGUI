@@ -153,9 +153,9 @@ class Conta:
                         self.sal = float(dado[2]) - v
                         if self.sal < 0:
                             sg.popup('Você não tem saldo suficiente!', font=("arial", 13), title='Saque')
-                            self.sal = 0
-                            valid = True
-                            return valid
+                            self.sal = float(dado[2])
+                            valid = False
+                            break
                         else:
                             dado[2] = f'{self.sal:.2f}'
                             linha_atualizada = f'{dado[0]},{dado[1]},{dado[2]},{dado[3]},{dado[4]},{dado[5]}'
@@ -223,9 +223,9 @@ class Conta:
                         self.sal = float(dado[2]) - v
                         if self.sal < 0:
                             sg.popup('Você não tem saldo suficiente!', font=("arial", 13), title='Pagamentos')
-                            self.sal = 0
-                            valid = True
-                            return valid
+                            self.sal = float(dado[2])
+                            valid = False
+                            break
 
                         else:
                             dado[2] = f'{self.sal:.2f}'
@@ -261,7 +261,7 @@ class Conta:
         finally:
             a.close()
 
-    def transfer(self, arquivo, valor, numD):
+    def transfer(self, arquivo, valor, numD, senha):
         """
         -> Método que faz toda operação de transferêcia.
         :param arquivo: Passa o arquivo que serve como banco de dados.
@@ -269,15 +269,16 @@ class Conta:
         :param numD: Passa o número da conta de destino.
         :return: Retorna True ou False.
         """
+        valid = ''
         valor = str(valor).replace(',', '.')
         v = float(valor)
+        s = 0
         try:
             a = open(arquivo, 'rt')
         except:
             sg.popup('Houve um ERRO ao abrir o arquivo!', font=("arial", 13), title='Transferência')
         else:
             try:
-                valid = False
                 linhas = []
                 for linha in a:
                     linhas.append(linha)
@@ -285,44 +286,55 @@ class Conta:
                 conta_des = 0
                 for dados in linhas:
                     dado = dados.split(',')
-                    if dado[0] in self._numero:
+                    if dado[0] in self._numero and senha == self._senha:
                         self.sal = float(dado[2]) - v
                         if self.sal < 0:
                             sg.popup('Você não tem saldo suficiente!', font=("arial", 13), title='Transferência')
-                            self.sal = 0
+                            self.sal = float(dado[2])
+                            valid = False
                             return valid
                         else:
                             dado[2] = f'{self.sal:.2f}'
                             linha_atual = f'{dado[0]},{dado[1]},{dado[2]},{dado[3]},{dado[4]},{dado[5]}'
                             linhas[conta_des] = linha_atual
+                            valid = True
+                            break
+                    s += 1
                     conta_des += 1
 
-                for dados in linhas:
-                    dado = dados.split(',')
-                    if dado[0] in numD:
-                        self.descricao = f'{dado[3]} {dado[4]}'
-                        dep = float(dado[2]) + float(valor)
-                        dado[2] = f'{dep:.2f}'
-                        linha_atual = f'{dado[0]},{dado[1]},{dado[2]},{dado[3]},{dado[4]},{dado[5]}'
-                        linhas[conta_dep] = linha_atual
-                    conta_dep += 1
+                    if s == len(linhas):
+                        sg.popup('  Senha inválida!  ', font=("arial", 13), title='Transferência')
+                        valid = False
 
-                try:
-                    a = open(arquivo, 'wt')
-                    for valor in linhas:
-                        a.write(f'{valor}')
-                    a.close()
-                    sg.popup('Trasferência feita com sucesso!', font=("arial", 13), title='Transferência')
+                if valid:
+                    for dados in linhas:
+                        dado = dados.split(',')
+                        if dado[0] in numD:
+                            self.descricao = f'{dado[3]} {dado[4]}'
+                            dep = float(dado[2]) + float(valor)
+                            dado[2] = f'{dep:.2f}'
+                            linha_atual = f'{dado[0]},{dado[1]},{dado[2]},{dado[3]},{dado[4]},{dado[5]}'
+                            linhas[conta_dep] = linha_atual
+                        conta_dep += 1
 
-                except:
-                    sg.Popup('ERRO na gravação dos dados!', font=("arial", 13), title='Transferêcia')
+                    try:
+                        a = open(arquivo, 'wt')
+                        for valor in linhas:
+                            a.write(f'{valor}')
+                        a.close()
+                        sg.popup('Trasferência feita com sucesso!', font=("arial", 13), title='Transferência')
+
+
+                    except:
+                        sg.Popup('ERRO na gravação dos dados!', font=("arial", 13), title='Transferêcia')
             except:
-                sg.popup('Houve um AQUI ao ler o aquivo!', font=("arial", 13), title='Transferência')
+                sg.popup('Houve um erro ao ler o aquivo!', font=("arial", 13), title='Transferência')
         finally:
             a.close()
         self._extrato.movimentacao.append(f'Trasferência de {v:.2f} -'
                                           f' {datetime.strftime(data_hora, "%d/%m/%y - %H:%Mh")}\n'
                                           f'Destino >> {self.descricao}\n'.replace('.', ','))
+        return valid
 
     def consulta(self, arquivo, contaD):
         """
