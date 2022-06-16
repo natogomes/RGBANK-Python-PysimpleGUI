@@ -173,6 +173,10 @@ while True:
                     while True:
                         window, event, values = sg.read_all_windows()
 
+                        valor = values['valorSq'].strip()
+                        senha = values['senhaSq'].strip()
+                        valorConf = values['valorS'].strip()
+
                         if event == sg.WIN_CLOSED:
                             exit()
 
@@ -182,20 +186,20 @@ while True:
                             break
 
                         elif event == 'OK':
-                            if validacao_valor(values['valorSq']):
-                                if values['senhaSq'] == '':
+                            if validacao_valor(valor):
+                                if senha == '':
                                     sg.popup('Informe sua senha!', font='arial 13', title='Saque')
                                 else:
-                                    window['valorS'].update(values['valorSq'])
+                                    window['valorS'].update(valor)
                             else:
                                 window['valorSq'].update('')
 
                         elif event == 'Confirmar':
-                            if values['valorS'] == '0,00':
+                            if valorConf == '0,00':
                                 sg.popup('Clique (OK) para confirmar o valor', font='arial 13', title='Saque')
                                 continue
 
-                            if cliente_conta.saca(banco_dados, values['valorSq'], values['senhaSq']):
+                            if cliente_conta.saca(banco_dados, valor, senha):
                                 window.close()
                                 tela_prin(cliente, cliente_conta)
                                 break
@@ -207,6 +211,9 @@ while True:
                     window.close()
                     while True:
                         window, event, values = sg.read_all_windows()
+                        valor = values['valorPg'].strip()
+                        senha = values['senhaPg'].strip()
+                        descricao = values['descricao'].strip()
 
                         if event == sg.WIN_CLOSED:
                             exit()
@@ -217,21 +224,19 @@ while True:
                             break
 
                         elif event == 'Confirmar':
-                            if validacao_valor(values['valorPg']):
-                                if values['senhaPg'] == '':
+                            if validacao_valor(valor):
+                                if senha == '':
                                     sg.popup('Informe sua senha!', font='arial 13', title='Pagamentos')
                                     continue
 
                                 else:
-                                    if cliente_conta.pagtos(banco_dados, values['valorPg'], values['senhaPg'],
-                                                            values['descricao']):
+                                    if cliente_conta.pagtos(banco_dados, valor, senha, descricao):
                                         window.close()
                                         tela_prin(cliente, cliente_conta)
                                         break
                                     else:
                                         window['senhaPg'].update('')
                                         window['valorPg'].update('')
-
 
                             else:
                                 window['valorPg'].update('')
