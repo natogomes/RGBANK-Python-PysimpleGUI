@@ -235,11 +235,11 @@ def tela_pagtos():
 
     layout = [
         [sg.Image('imagens/logoRGB.png')],
-        [sg.Text('Pagamentos RGB', font='arial, 12', pad=(0, 0))],
+        [sg.Text('Pagamentos RGB', font='arial, 12', pad=(0, (30, 0)))],
         [sg.Frame(layout=dadosPg, title='', pad=(0, (0, 20)))],
-        [sg.Button('Sair', font='arial 13', size=(8, 1))],
-        [sg.Frame(layout=descricao, title='', pad=(0, 20))],
-        [sg.Button('Confirmar', size=(10, 1), font='arial 13')]
+        [sg.Frame(layout=descricao, title='', pad=(0, (0, 30)))],
+        [sg.Button('Confirmar', size=(10, 1), font='arial 13'),
+         sg.Button('Sair', font='arial 13', size=(6, 1))]
     ]
 
     telaPgt = sg.Window('Pagamentos', icon='imagens/logoico.ico', layout=layout, size=(600, 500), element_justification='center', modal=True, finalize=True)

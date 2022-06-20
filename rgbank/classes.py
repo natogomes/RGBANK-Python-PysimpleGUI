@@ -305,6 +305,7 @@ class Conta:
                     if s == len(linhas):
                         sg.popup('  Senha inválida!  ', font=("arial", 13), title='Transferência')
                         valid = False
+                        return valid
 
                 if valid:
                     for dados in linhas:
